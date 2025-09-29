@@ -1,12 +1,24 @@
 <template>
   <el-card>
-    <h2>{{ post.Title || post.title }}</h2>
-    <p>{{ post.Content || post.content }}</p>
-    <el-divider />
-    <h3>评论</h3>
-    <div v-for="c in comments" :key="c.ID">
-      <p><strong>{{ c.UserID }}</strong>: {{ c.Content || c.content }}</p>
-    </div>
+   <!-- 帖子详情 -->
+    <section v-if="post">
+      <h2>{{ post.title }}</h2>
+      <p class="meta">
+        作者: {{ post.username || '匿名' }} | 发布于: {{ formatDate(post.created_at) }}
+      </p>
+      <p class="content">{{ post.content }}</p>
+    </section>
+
+    <!-- 评论列表 -->
+    <section class="comments">
+      <h3>评论 ({{ comments.length }})</h3>
+      <ul>
+        <li v-for="c in comments" :key="c.id">
+          <strong>{{ c.username || '匿名' }}</strong>: {{ c.content }}
+          <span class="time">{{ formatDate(c.created_at) }}</span>
+        </li>
+      </ul>
+    </section>
 
     <el-form :model="commentForm">
       <el-form-item>
@@ -22,6 +34,7 @@ import { ref, onMounted } from 'vue'
 import api from '../api'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
+import { createComment, fetchComments, fetchPost } from '../api/services'
 const route = useRoute()
 
 const post = ref({})
@@ -31,14 +44,14 @@ const commentForm = ref({ content: '' })
 async function load() {
   const id = route.params.id
   try {
-    const resPost = await api.get(`/api/posts/${id}`) // 后端需实现 GET /api/posts/:id
+    const resPost = await fetchPost(id) // 后端需实现 GET /api/posts/:id
     post.value = resPost.data
   } catch (e) {
     console.error(e)
   }
 
   try {
-    const res = await api.get(`/api/posts/${id}/comments`) // 后端需实现
+    const res = await fetchComments(id) // 后端需实现
     comments.value = res.data
   } catch (e) {
     console.error(e)
@@ -47,7 +60,8 @@ async function load() {
 
 async function submitComment() {
   try {
-    await api.post('/api/comments', { post_id: route.params.id, content: commentForm.value.content })
+    const params = { post_id: Number(route.params.id), content: commentForm.value.content }
+    await createComment(params)
     ElMessage.success('评论成功')
     commentForm.value.content = ''
     await load()
@@ -56,5 +70,27 @@ async function submitComment() {
   }
 }
 
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleString()
+}
+
 onMounted(load)
 </script>
+
+<style scoped>
+
+.meta {
+  font-size: 0.9rem;
+  color: gray;
+}
+.content {
+  margin: 1rem 0;
+}
+
+.time {
+  font-size: 0.8rem;
+  color: #999;
+  margin-left: 8px;
+}
+
+</style>

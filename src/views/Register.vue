@@ -18,13 +18,14 @@ import { reactive } from 'vue'
 import api from '../api'
 import { ElMessage, formContextKey } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { register } from '../api/services'
 
 const router = useRouter()
 const form = reactive({username: '', password: ''})
 
 async function onSubmit() {
     try {
-        await api.post('/register', form)
+        await register(form)
         ElMessage.success('注册成功, 请登录')
         router.push('/login')
     } catch (e) {

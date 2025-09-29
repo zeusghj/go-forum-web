@@ -10,10 +10,10 @@
       <el-button type="primary" @click="router.push('/create')">发帖</el-button>
       <el-divider></el-divider>
 
-      <el-card v-for="p in posts" :key="p.ID" @click="$router.push(`/posts/${p.ID}`)" class="mb-2">
-        <h3>{{ p.Title || p.title }}</h3>
-        <p>{{ p.Content || p.content }}</p>
-        <small>作者：{{ p.UserID }} | 评论数：待定</small>
+      <el-card v-for="p in posts" :key="p.id" @click="$router.push(`/posts/${p.id}`)" class="mb-2">
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.content }}</p>
+        <small>作者：{{ p.username }} | 评论数：{{ p.comment_count }}</small>
       </el-card> 
     </div>
 

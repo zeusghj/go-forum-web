@@ -18,13 +18,14 @@ import { reactive } from 'vue'
 import api from '../api'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { createPost } from '../api/services'
 
 const router = useRouter()
 const form = reactive({ title: '', content: '' })
 
 async function onCreate() {
   try {
-    const res = await api.post('/api/posts', form)
+    const res = await createPost(form)
     ElMessage.success('发帖成功')
     router.push(`/posts/${res.data.post_id || res.data.id || ''}`)
   } catch (e) {

@@ -21,6 +21,10 @@ export function fetchPosts() {
   return api.get('/api/posts')
 }
 
+export function fetchPost(postId) {
+  return api.get(`/api/posts/${postId}`)
+}
+
 export function createPost(data) {
   // data: { title, content }
   return api.post('/api/posts', data)
@@ -31,7 +35,8 @@ export function fetchComments(postId) {
   return api.get(`/api/posts/${postId}/comments`)
 }
 
-export function createComment(postId, data) {
+// 评论帖子
+export function createComment(data) {
   // data: { content }
-  return api.post(`/api/posts/${postId}/comments`, data)
+  return api.post(`/api/comments`, data)
 }

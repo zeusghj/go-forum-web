@@ -17,12 +17,13 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import api from '../api'
+import { fetchPosts } from '../api/services'
 
 const posts = ref([])
 
 async function load() {
   try {
-    const res = await api.get('/api/posts') // 如果后端没有 GET /api/posts，需要在后端添加
+    const res = await fetchPosts()
     posts.value = res.data
   } catch (err) {
     console.error(err)

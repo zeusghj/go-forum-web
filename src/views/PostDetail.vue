@@ -71,8 +71,32 @@ async function submitComment() {
 }
 
 function formatDate(dateStr) {
-  return new Date(dateStr).toLocaleString()
+  const date = new Date(dateStr);
+  
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份从0开始，需要+1
+  const day = String(date.getDate()).padStart(2, '0');
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+  
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
+// function formatDate(dateStr, format = 'YYYY-MM-DD HH:mm:ss') {
+//   const date = new Date(dateStr);
+  
+//   const replacements = {
+//     'YYYY': date.getFullYear(),
+//     'MM': String(date.getMonth() + 1).padStart(2, '0'),
+//     'DD': String(date.getDate()).padStart(2, '0'),
+//     'HH': String(date.getHours()).padStart(2, '0'),
+//     'mm': String(date.getMinutes()).padStart(2, '0'),
+//     'ss': String(date.getSeconds()).padStart(2, '0')
+//   };
+  
+//   return format.replace(/YYYY|MM|DD|HH|mm|ss/g, match => replacements[match]);
+// }
 
 onMounted(load)
 </script>

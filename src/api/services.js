@@ -13,30 +13,30 @@ export function login(data) {
 
 export function fetchProfile() {
   // 返回 { user_id, username }
-  return api.get('/api/profile')
+  return api.get('/v1/user/profile')
 }
 
 // 帖子相关
 export function fetchPosts() {
-  return api.get('/api/posts')
+  return api.get('/v1/post/list')
 }
 
 export function fetchPost(postId) {
-  return api.get(`/api/posts/${postId}`)
+  return api.get(`/v1/post/detail?id=${postId}`)
 }
 
 export function createPost(data) {
   // data: { title, content }
-  return api.post('/api/posts', data)
+  return api.post('/v1/post/publish', data)
 }
 
 // 评论相关
 export function fetchComments(postId) {
-  return api.get(`/api/posts/${postId}/comments`)
+  return api.get(`/v1/post/comment/list?post_id=${postId}`)
 }
 
 // 评论帖子
 export function createComment(data) {
   // data: { content }
-  return api.post(`/api/comments`, data)
+  return api.post(`/v1/post/comment/add`, data)
 }

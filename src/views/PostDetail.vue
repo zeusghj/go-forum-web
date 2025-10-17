@@ -4,7 +4,7 @@
     <section v-if="post">
       <h2>{{ post.title }}</h2>
       <p class="meta">
-        作者: {{ post.username || '匿名' }} | 发布于: {{ formatDate(post.created_at) }}
+        作者: {{ post.username || '匿名' }} | 发布于: {{ formatDate(post.createdAt) }}
       </p>
       <p class="content">{{ post.content }}</p>
     </section>
@@ -15,7 +15,7 @@
       <ul>
         <li v-for="c in comments" :key="c.id">
           <strong>{{ c.username || '匿名' }}</strong>: {{ c.content }}
-          <span class="time">{{ formatDate(c.created_at) }}</span>
+          <span class="time">{{ formatDate(c.createdAt) }}</span>
         </li>
       </ul>
     </section>
@@ -52,7 +52,7 @@ async function load() {
 
   try {
     const res = await fetchComments(id) // 后端需实现
-    comments.value = res.data
+    comments.value = res.data.comments
   } catch (e) {
     console.error(e)
   }

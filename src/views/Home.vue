@@ -13,7 +13,7 @@
       <el-card v-for="p in posts" :key="p.id" @click="$router.push(`/posts/${p.id}`)" class="mb-2">
         <h3>{{ p.title }}</h3>
         <p>{{ p.content }}</p>
-        <small>作者：{{ p.username }} | 评论数：{{ p.comment_count }}</small>
+        <small>作者：{{ p.username }} | 评论数：{{ p.commentCount }}</small>
       </el-card> 
     </div>
 
@@ -34,7 +34,7 @@ const posts = ref([])
 async function loadPosts() {
   try {
     const res = await fetchPosts()
-    posts.value = res.data
+    posts.value = res.data.posts
   } catch (err) {
     console.error(err)
   }

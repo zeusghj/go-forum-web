@@ -19,9 +19,9 @@ export const useAuthStore = defineStore('auth', {
         },
         async fetchProfile() {
             try {
-                // 你后端有 /api/profile 接口可返回 user_id/username
+                // 你后端有 /v1/user/profile 接口可返回 user_id/username
                 const res = await fetchProfile()
-                this.userId = res.data.user_id
+                this.userId = res.data.id
                 this.username = res.data.username
                 localStorage.setItem('userId', String(this.userId))
                 localStorage.setItem('username', this.username)

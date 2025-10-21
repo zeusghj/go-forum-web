@@ -31,7 +31,6 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import api from '../api'
 import { ElMessage } from 'element-plus'
 import { useRoute } from 'vue-router'
 import { createComment, fetchComments, fetchPost } from '../api/services'

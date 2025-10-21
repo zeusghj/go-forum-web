@@ -15,7 +15,6 @@
 
 <script setup>
 import { reactive } from 'vue'
-import api from '../api'
 import { ElMessage, formContextKey } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { register } from '../api/services'

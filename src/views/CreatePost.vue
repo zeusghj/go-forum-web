@@ -15,7 +15,6 @@
 
 <script setup>
 import { reactive } from 'vue'
-import api from '../api'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 import { createPost } from '../api/services'

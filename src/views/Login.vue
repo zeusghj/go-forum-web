@@ -15,7 +15,6 @@
 
 <script setup>
 import { reactive } from 'vue'
-import api from '../api'
 import { useAuthStore } from '../store/auth'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
@@ -33,7 +32,7 @@ async function onLogin() {
     if (!token) throw new Error('no token')
 
     auth.setAuth(token)
-    await auth.fetchProfile() // 获取用户信息（后端 /api/profile）
+    await auth.fetchProfile() // 获取用户信息（后端 /v1/user/profile）
     ElMessage.success('登录成功')
     router.push('/')
   } catch (err) {

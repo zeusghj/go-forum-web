@@ -40,3 +40,20 @@ sudo systemctl stop nginx
 ```
 sudo cp -r /home/goer/workspace/vue/go-forum-web/dist/* /usr/share/nginx/html/dist/
 ```
+
+## 要使的 http://localhost/forum 可以访问 
+- 需设置
+```
+location /forum {
+            alias /usr/share/nginx/html/dist;
+            index index.html;
+            try_files $uri $uri/ /dist/index.html; 
+}
+```
+- 路由文件 
+```
+const router = createRouter({
+  history: createWebHistory('/forum/'),
+  routes
+})
+```

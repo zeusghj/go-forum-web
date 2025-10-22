@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>欢迎来到 Go + Vue 简易论坛</h1>
-
+    <!-- <HelloWorld msg="这是父组件传来的数据 " /> -->
     <div v-if="!auth.isLoggedIn">
       <p>请登录以查看帖子和发帖。</p>
     </div>
@@ -26,6 +26,7 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '../store/auth';
 import { ElMessage } from 'element-plus';
 import { fetchPosts } from '../api/services';
+import HelloWorld from '../components/HelloWorld.vue';
 
 const auth = useAuthStore()
 const router = useRouter()

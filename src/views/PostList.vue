@@ -16,7 +16,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { fetchPosts } from '../api/services'
+import { fetchPosts } from '@/api/services'
 
 const posts = ref([])
 

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冬季活动卡片</title>
+    <style>
+        /* 基础样式与移动端适配 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* 主容器，对应Flutter中的Padding */
+        .card-container {
+            padding-bottom: 10px; /* 对应Flutter中的bottom: 10 */
+            position: relative;
+            width: 690px; /* 对应Flutter中的690.w */
+            max-width: 100%; /* 确保在小屏幕上不会溢出 */
+        }
+
+        /* 层叠容器，对应Flutter中的Stack */
+        .card-stack {
+            position: relative;
+            width: 100%;
+        }
+
+        /* 底部背景图片 */
+        .card-image {
+            width: 100%;
+            display: block;
+            border-radius: 12px; /* 可选，增加圆角 */
+        }
+
+        /* 进度条容器 - 定位在右上角 */
+        .progress-container {
+            position: absolute;
+            top: 12px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 2px; /* 替代Flutter中的SizedBox(width: 2) */
+        }
+
+        /* 进度条基础样式 */
+        .progress-bar {
+            width: 160px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 3px; /* 替代Flutter中的SizedBox(width: 3) */
+        }
+
+        /* 未完成状态的进度条 */
+        .progress-uncompleted {
+            background-color: #FFDBEE;
+        }
+
+        /* 已完成状态的进度条（渐变背景） */
+        .progress-completed {
+            background: linear-gradient(to right, #FF00A0, #FF993C);
+        }
+
+        /* 进度文本样式 */
+        .progress-text {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .text-uncompleted {
+            color: #FFFF4387;
+        }
+
+        .text-completed {
+            color: #FFFFFF;
+        }
+
+        /* "已达成"文本样式 */
+        .achieved-text {
+            font-size: 22px;
+            color: #FFFF863D;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* 底部按钮容器 */
+        .button-container {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%); /* 水平居中 */
+        }
+
+        /* 按钮样式 */
+        .recharge-btn {
+            width: 300px;
+            height: 66px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        .recharge-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .recharge-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 动态进度条（用于进行中状态） */
+        .progress-bar.dynamic {
+            background-color: #FFDBEE;
+            overflow: hidden; /* 确保内部进度不溢出 */
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #FF00A0, #FF993C);
+            border-radius: 6px;
+            transition: width 0.3s ease; /* 进度变化动画 */
+        }
+
+        .progress-text.dynamic {
+            position: absolute;
+            right: 3px;
+            z-index: 1; /* 确保文本在进度条上方 */
+        }
+    </style>
+</head>
+<body>
+    <div class="card-container">
+        <div class="card-stack">
+            <!-- 背景图片 -->
+            <img src="assets/images/home/winter_act_1.png" alt="冬季活动" class="card-image">
+            
+            <!-- 进度指示器 -->
+            <div class="progress-container" id="progressContainer">
+                <!-- 这里的内容将通过JavaScript动态生成 -->
+            </div>
+            
+            <!-- 底部按钮 -->
+            <div class="button-container">
+                <button class="recharge-btn" onclick="handleRecharge()">
+                    <img src="assets/images/home/zq_recharge_btn.png" alt="立即充值" style="width:100%;height:100%;">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟数据 - 在实际应用中这些数据可能来自后端API
+        const rechargeNum = 5; // 当前充值金额
+        const nums = [10, 20, 30, 50]; // 各档位目标金额
+        const currentIndex = 0; // 当前卡片索引
+
+        // 充值按钮点击处理
+        function handleRecharge() {
+            // 对应Flutter中的Get.find<MainController>().showRechargePage()
+            console.log('打开充值页面');
+            // 在实际应用中这里会打开充值弹窗或跳转页面
+        }
+
+        // 渲染进度条
+        function renderProgress() {
+            const progressContainer = document.getElementById('progressContainer');
+            const targetAmount = nums[currentIndex];
+            
+            // 清空容器
+            progressContainer.innerHTML = '';
+            
+            if (rechargeNum === 0) {
+                // 未充值状态
+                progressContainer.innerHTML = `
+                    <div class="progress-bar progress-uncompleted">
+                        <span class="progress-text text-uncompleted">0/${targetAmount}</span>
+                    </div>
+                `;
+            } else if (rechargeNum >= targetAmount) {
+                // 已完成状态
+                progressContainer.innerHTML = `
+                    <div class="progress-bar progress-completed">
+                        <span class="progress-text text-completed">${targetAmount}/${targetAmount}</span>
+                    </div>
+                    <span class="achieved-text">已达成</span>
+                `;
+            } else {
+                // 进行中状态
+                const progressPercentage = (rechargeNum / targetAmount) * 100;
+                progressContainer.innerHTML = `
+                    <div class="progress-bar dynamic">
+                        <div class="progress-fill" style="width: ${progressPercentage}%"></div>
+                        <span class="progress-text dynamic text-uncompleted">${rechargeNum}/${targetAmount}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // 页面加载完成后渲染进度条
+        document.addEventListener('DOMContentLoaded', renderProgress);
+    </script>
+</body>
+</html>

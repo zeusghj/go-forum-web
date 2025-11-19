@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router"
-import Home from "../views/Home.vue"
-import About from "../views/About.vue"
-import Register from '../views/Register.vue'
-import Login from '../views/Login.vue'
-import PostList from '../views/PostList.vue'
-import PostDetail from '../views/PostDetail.vue'
-import CreatePost from '../views/CreatePost.vue'
+import Home from "@/views/Home.vue"
+import About from "@/views/About.vue"
+import Register from '@/views/Register.vue'
+import Login from '@/views/Login.vue'
+import PostList from '@/views/PostList.vue'
+import PostDetail from '@/views/PostDetail.vue'
+import CreatePost from '@/views/CreatePost.vue'
 
-import { useAuthStore } from "../store/auth"
+import { useAuthStore } from "@/store/auth"
 
 const routes = [
   { path: '/', component: Home},

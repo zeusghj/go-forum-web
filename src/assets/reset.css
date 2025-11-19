@@ -1,0 +1,10 @@
+/* 清除浏览器默认的 body margin */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* 可选：统一盒模型，避免出现奇怪宽度 */
+* {
+  box-sizing: border-box;
+}
